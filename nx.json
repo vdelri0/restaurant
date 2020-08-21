@@ -1,0 +1,39 @@
+{
+  "npmScope": "restaurant",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "accessToken": "N2ViOTE5ZDktM2FkOS00MmNkLWExZTMtZjdiYmEyZjNkNDFjfHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
+    }
+  },
+  "projects": {
+    "restaurant-app": {
+      "tags": []
+    },
+    "restaurant-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["restaurant-app"]
+    },
+    "restaurant-api": {
+      "tags": []
+    }
+  }
+}

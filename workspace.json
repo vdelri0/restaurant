@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "projects": {
+    "restaurant-app": {
+      "root": "apps/restaurant-app",
+      "sourceRoot": "apps/restaurant-app/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/restaurant-app",
+            "index": "apps/restaurant-app/src/index.html",
+            "main": "apps/restaurant-app/src/main.tsx",
+            "polyfills": "apps/restaurant-app/src/polyfills.ts",
+            "tsConfig": "apps/restaurant-app/tsconfig.app.json",
+            "assets": [
+              "apps/restaurant-app/src/favicon.ico",
+              "apps/restaurant-app/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/restaurant-app/src/environments/environment.ts",
+                  "with": "apps/restaurant-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "restaurant-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "restaurant-app:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/restaurant-app/tsconfig.app.json",
+              "apps/restaurant-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/restaurant-app/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/restaurant-app/jest.config.js",
+            "tsConfig": "apps/restaurant-app/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "restaurant-app-e2e": {
+      "root": "apps/restaurant-app-e2e",
+      "sourceRoot": "apps/restaurant-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/restaurant-app-e2e/cypress.json",
+            "tsConfig": "apps/restaurant-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "restaurant-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "restaurant-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": ["apps/restaurant-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/restaurant-app-e2e/**/*"]
+          }
+        }
+      }
+    },
+    "restaurant-api": {
+      "root": "apps/restaurant-api",
+      "sourceRoot": "apps/restaurant-api/src",
+      "projectType": "application",
+      "prefix": "restaurant-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/restaurant-api",
+            "main": "apps/restaurant-api/src/main.ts",
+            "tsConfig": "apps/restaurant-api/tsconfig.app.json",
+            "assets": ["apps/restaurant-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/restaurant-api/src/environments/environment.ts",
+                  "with": "apps/restaurant-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "restaurant-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/restaurant-api/tsconfig.app.json",
+              "apps/restaurant-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/restaurant-api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/restaurant-api/jest.config.js",
+            "tsConfig": "apps/restaurant-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "schematics": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "restaurant-app"
+}
